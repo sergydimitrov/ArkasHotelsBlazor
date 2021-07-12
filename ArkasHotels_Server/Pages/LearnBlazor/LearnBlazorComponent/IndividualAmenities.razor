@@ -1,3 +1,24 @@
-﻿<h1>Hello, world!</h1>
+﻿@using Model
+<div class="bg-light border p-2 col-5 offset-1" @onclick="(args)=> AmenityCheckBoxSelectionChanged(args,Amenities.Name)">
+    <h4 class="text-secondary">Hotel Amenities - @Amenities.Id</h4>
+    @* <input type="checkbox" @onchange="OnAmenitiesCheckBoxSelection" />*@
+    <br />
+    <span> @Amenities.Name</span>
+    <br />
+    <span> @Amenities.Description</span>
 
-Welcome to your new app.
+</div>
+
+@code {
+
+    [Parameter]
+    public BlazorAmenities Amenities { get; set; }
+
+    [Parameter]
+    public EventCallback<string> AmenitiesSelectionChanged { get; set; }
+
+    protected async Task AmenityCheckBoxSelectionChanged(MouseEventArgs args,string name)
+    {
+        await AmenitiesSelectionChanged.InvokeAsync(name);
+    }
+}

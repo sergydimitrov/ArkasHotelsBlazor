@@ -13,14 +13,26 @@
         {
             <IndividualRoom OnRoomCheckBoxSelection="RoomSelectionCounterChanged" Room="@room"></IndividualRoom>
         }
+    <div>
+        <div class="col-12">
+            <h4 class="text-info">Amenities</h4>
+            <span>SelectedAmenity : @SelectedAmenity</span>
+        </div>
+        @foreach (var amenity in AmenityList)
+        {
+            <IndividualAmenities AmenitiesSelectionChanged="AmenitiesSelectionChanged" ></IndividualAmenities>
+        }
     </div>
+    </div>
+   
 </div>
 
 
 @code{
     public int SelectedRooms { get; set; } = 0;
+    public string SelectedAmenity { get; set; }=string.Empty;
     List<BlazorRoom> RoomsList = new List<BlazorRoom>();
-
+    List<BlazorAmenities> AmenityList = new List<BlazorAmenities>();
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -38,19 +50,27 @@
              }
         });
 
-        RoomsList.Add(new BlazorRoom()
+        AmenityList.Add(new BlazorAmenities()
         {
-            Id = 301,
-            RoomName = "Villa Suite Two Bed Room",
-            IsActive = true,
-            Price = 699,
-            RoomProps = new List<BlazorRoomProp>
-            {
-                new Model.BlazorRoomProp{Id=1,Name="Sq Ft",Value="150"},
-                new Model.BlazorRoomProp{Id=2,Name="Occupancy",Value="6"},
-            }
-        });
+            Id = 900,
+            Name = "Swimming Pool",
+            Description= "Perfect olympic Swimming pool"
 
+        });
+        AmenityList.Add(new BlazorAmenities()
+        {
+            Id = 901,
+            Name = "Gym",
+            Description = "Perfect Gym"
+
+        });
+        AmenityList.Add(new BlazorAmenities()
+        {
+            Id = 902,
+            Name = "Cinema",
+            Description = "Perfect Cinema "
+
+        });
     }
 
     protected void RoomSelectionCounterChanged(bool isRoomSelected)
@@ -64,4 +84,9 @@
             SelectedRooms--;
         }
     }
+    protected void AmenitiesSelectionChanged(string name )
+    {
+        SelectedAmenity = name;
+    }
+
 }

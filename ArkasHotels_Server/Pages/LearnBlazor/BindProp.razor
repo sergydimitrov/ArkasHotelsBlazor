@@ -2,3 +2,24 @@
     <h1>Hello, world!</h1>
 
     Welcome to your new app.
+
+<h2 class="bg-light border p-2">
+    First Room
+</h2>
+Room : @Room.RoomName
+<br />
+Price: @Room.Price
+<br />
+
+<input type="number" @bind-value="@Room.Price" @bind-value:event="oninput" />
+
+
+@code {
+    Model.BlazorRoom Room = new Model.BlazorRoom()
+    {
+        Id = 1,
+        RoomName = "Arkas Çeşme Aya Yorgi Hotel Room",
+        IsActive = true,
+        Price = 499
+    };
+}

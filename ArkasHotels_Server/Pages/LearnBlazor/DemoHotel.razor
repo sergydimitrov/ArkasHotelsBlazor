@@ -13,16 +13,15 @@
         {
             <IndividualRoom OnRoomCheckBoxSelection="RoomSelectionCounterChanged" Room="@room"></IndividualRoom>
         }
-    <div>
+
         <div class="col-12">
             <h4 class="text-info">Amenities</h4>
             <span>SelectedAmenity : @SelectedAmenity</span>
         </div>
         @foreach (var amenity in AmenityList)
         {
-            <IndividualAmenities AmenitiesSelectionChanged="AmenitiesSelectionChanged" ></IndividualAmenities>
+            <IndividualAmenities AmenitiesSelectionChanged="AmenitiesSelectionChanged" Amenities="@amenity"></IndividualAmenities>
         }
-    </div>
     </div>
    
 </div>
@@ -43,6 +42,19 @@
             RoomName = "Villa Suite One Bed Room",
             IsActive = true,
             Price = 399,
+            RoomProps = new List<BlazorRoomProp>
+            {
+                new Model.BlazorRoomProp{Id=1,Name="Sq Ft",Value="330"},
+                new Model.BlazorRoomProp{Id=2,Name="Occupancy",Value="4"},
+             }
+        });
+
+        RoomsList.Add(new BlazorRoom()
+        {
+            Id = 202,
+            RoomName = "Villa Suite Two Bed Room",
+            IsActive = true,
+            Price = 520,
             RoomProps = new List<BlazorRoomProp>
             {
                 new Model.BlazorRoomProp{Id=1,Name="Sq Ft",Value="330"},

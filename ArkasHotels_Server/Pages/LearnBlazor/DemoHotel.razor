@@ -20,7 +20,10 @@
         </div>
         @foreach (var amenity in AmenityList)
         {
-            <IndividualAmenities AmenitiesSelectionChanged="AmenitiesSelectionChanged" Amenities="@amenity"></IndividualAmenities>
+            <IndividualAmenities AmenitiesSelectionChanged="AmenitiesSelectionChanged" Amenities="@amenity">
+                <FirstFragment>First Fragment</FirstFragment>
+                <SecondFragment>Second Fragment</SecondFragment>
+            </IndividualAmenities>
         }
     </div>
    

@@ -7,6 +7,33 @@
     <br />
     <span> @Amenities.Description</span>
 
+    <div class="alert alert-success">
+
+        @if (FirstFragment == null)
+        {
+
+
+            <span>Empty First Fragment</span>
+        }
+        else
+        {
+            <span>@FirstFragment</span>
+        }
+        <br />
+        @if (SecondFragment == null)
+        {
+
+
+            <span>Empty Second Fragment</span>
+        }
+        else
+        {
+            <span>@SecondFragment</span>
+        }
+
+
+    </div>
+
 </div>
 
 @code {
@@ -16,6 +43,12 @@
 
     [Parameter]
     public EventCallback<string> AmenitiesSelectionChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment FirstFragment { get; set; }
+
+    [Parameter]
+    public RenderFragment SecondFragment { get; set; }
 
     protected async Task AmenityCheckBoxSelectionChanged(MouseEventArgs args,string name)
     {

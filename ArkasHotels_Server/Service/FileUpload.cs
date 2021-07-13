@@ -42,33 +42,26 @@ namespace ArkasHotels_Server.Service
 
         public async Task<string> UploadFile(IBrowserFile file)
         {
-            try
+            FileInfo fileInfo = new FileInfo(file.Name);
+            var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
+            var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\RoomImages";
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RoomImages", fileName);
+
+            var memoryStream = new MemoryStream();
+            await file.OpenReadStream().CopyToAsync(memoryStream);
+
+            if (!Directory.Exists(folderDirectory))
             {
-                FileInfo fileInfo = new FileInfo(file.Name);
-                var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
-                var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\RoomImages";
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "RoomImages", fileName);
-
-                var memoryStream = new MemoryStream();
-                await file.OpenReadStream().CopyToAsync(memoryStream);
-
-                if (!Directory.Exists(folderDirectory))
-                {
-                    Directory.CreateDirectory(folderDirectory);
-                }
-
-                await using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
-                {
-                    memoryStream.WriteTo(fs);
-                }
-                var url = $"{_configuration.GetValue<string>("ServerUrl")}";
-                var fullPath = $"{url}RoomImages/{fileName}";
-                return fullPath;
+                Directory.CreateDirectory(folderDirectory);
             }
-            catch (Exception ex)
+
+            await using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-                throw ex;
+                memoryStream.WriteTo(fs);
             }
+            var url = $"{_configuration.GetValue<string>("ServerUrl")}";
+            var fullPath = $"{url}RoomImages/{fileName}";
+            return fullPath;
         }
     }
 }

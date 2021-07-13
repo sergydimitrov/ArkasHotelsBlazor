@@ -18,8 +18,6 @@ namespace ArkasHotels_Client.Service
             _client = client;
         }
 
-
-
         public async Task<IEnumerable<HotelAmenityDTO>> GetHotelAmenities()
         {
             var response = await _client.GetAsync($"api/hotelamenity");

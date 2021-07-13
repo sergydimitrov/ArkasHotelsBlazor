@@ -1,4 +1,77 @@
 ﻿@page "/hotel-amenity"
-<h1>Hello, world!</h1>
+@using Models
+@using Business.Repository.IRepository
+@inject IAmenityRepository HotelRoomRepository
+@inject IJSRuntime JsRuntime
+@inject ArkasHotels_Server.Service.IService.IFileUpload FileUpload
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = Common.SD.Role_Admin)]
+<div class="row mt-4">
+    <div class="col-8">
+        <h4 class="card-title text-info">Hotel Amenity</h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink href="hotel-amenity/create" class="btn btn-info form-control">Add New Amenity</NavLink>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Timming</th>
+                    <th>IconStyle</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (HotelAmenities.Any())
+                {
+                    foreach (var amenity in HotelAmenities)
+                    {
+                        <tr>
+                            <td>@amenity.Name</td>
+                            <td>@amenity.Timming</td>
+                            <td><i class="@amenity.IconStyle"></i></td>
+                            <td>
+                                <NavLink href="@($"hotel-amenity/edit/{amenity.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(amenity.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No records found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-Welcome to your new app.
+
+<DeleteConfirmation IsParentComponentProcessing="IsProcessing" ConfirmationChanged="ConfirmDelete_Click"></DeleteConfirmation>
+
+@code {
+    private IEnumerable<HotelAmenityDTO> HotelAmenities { get; set; } = new List<HotelAmenityDTO>();
+    private int? DeleteAmenityId { get; set; } = null;
+    private bool IsProcessing { get; set; } = false;
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+
+    private async Task HandleDelete(int roomId)
+    {
+
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+
+    }
+}

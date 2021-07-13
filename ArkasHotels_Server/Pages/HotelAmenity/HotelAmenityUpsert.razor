@@ -10,7 +10,7 @@
 
 @attribute [Authorize(Roles = Common.SD.Role_Admin)]
 <div class="row mt-2 mb-5">
-    <h3 class="card-title text-info mb-3 ml-3">@Title Hotel Room</h3>
+    <h3 class="card-title text-info mb-3 ml-3">@Title Hotel Amenity</h3>
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label>Timming</label>
-                        <InputNumber @bind-Value="HotelAmenityModel.Timming" class="form-control"></InputNumber>
+                        <InputText @bind-Value="HotelAmenityModel.Timming" class="form-control"></InputText>
                         <ValidationMessage For="()=>HotelAmenityModel.Timming"></ValidationMessage>
                     </div>
                     <div class="form-group">

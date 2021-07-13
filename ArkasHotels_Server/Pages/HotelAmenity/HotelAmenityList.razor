@@ -1,9 +1,8 @@
 ﻿@page "/hotel-amenity"
 @using Models
 @using Business.Repository.IRepository
-@inject IAmenityRepository HotelRoomRepository
+@inject IAmenityRepository AmenityRepository
 @inject IJSRuntime JsRuntime
-@inject ArkasHotels_Server.Service.IService.IFileUpload FileUpload
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = Common.SD.Role_Admin)]
 <div class="row mt-4">
@@ -61,17 +60,28 @@
     private bool IsProcessing { get; set; } = false;
     protected override async Task OnInitializedAsync()
     {
-
+        HotelAmenities = await AmenityRepository.GetAllHotelAmenity();
     }
 
 
-    private async Task HandleDelete(int roomId)
+    private async Task HandleDelete(int amenityId)
     {
-
+        DeleteAmenityId = amenityId;
+        await JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
 
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {
+        IsProcessing = true;
+        if (isConfirmed && DeleteAmenityId != null)
+        {
+            HotelAmenityDTO hotelAmenity = await AmenityRepository.GetHotelAmenity(DeleteAmenityId.Value);
 
+            await AmenityRepository.DeleteHotelAmenity(DeleteAmenityId.Value, "");
+            await JsRuntime.ToastrSuccess("Hotel Amenity Deleted successfully");
+            HotelAmenities = await AmenityRepository.GetAllHotelAmenity();
+        }
+        await JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        IsProcessing = false;
     }
 }

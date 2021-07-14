@@ -1,0 +1,11 @@
+﻿
+<div class="my-component">
+    <div>
+        @L.Html(Body, "MySharedComponents", ElementIds.ParentNameId, ParentName)
+    </div>
+    
+    <br>
+    <button class="btn btn-primary" @onclick="GetTextAsync">@L[ClickMe]</button>
+    <br>
+    <text>Text : <span id="@ElementIds.TextValueId">@Text</span></text>
+</div>
